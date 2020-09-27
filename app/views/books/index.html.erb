@@ -26,14 +26,29 @@
 </table>
 
 <h2>New book</h2>
-  <%= form_with model:@book, url:"/books", local:true do |f| %>
-    <div class="field">
-      <p>Title</p>
-       <%= f.text_field :title %>
+
+<%= form_with(model:@book, local: true) do |form| %> <!--バリデーションチェック-->
+  <% if @book.errors.any? %> <!--ここからエラ〜メッセージ-->
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-    <div class="field">
-      <p>Body</p>
-      <%= f.text_area :body %>
-    </div>
-    <%= f.submit 'Create Book' %>
   <% end %>
+<% end %>
+
+<%= form_with model:@book, url:"/books", local:true do |f| %>
+  <div class="field">
+    <p>Title</p>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+     <p>Body</p>
+     <%= f.text_area :body %>
+  </div>
+  <%= f.submit 'Create Book' %>
+ <% end %>
