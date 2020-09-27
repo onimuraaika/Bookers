@@ -1,54 +1,60 @@
-<p id="notice">
-  <%= notice %> <!--サクセスメッセージ-->
-</p>
+<div class="messege">
+  <p id="notice"> <!--サクセスメッセージ-->
+    <%= notice %>
+  </p>
+</div>
 
-<h1>Books</h1>
+<header>
+  <h1>Books</h1>
+</header>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th colspan="3"></th> <!--Show,Edit,Destroyの部分を結合-->
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th colspan="3"></th> <!--Show,Edit,Destroyの部分を結合-->
+      </tr>
+    </thead>
+    <tbody>
       <% @books.each do |book| %>
-        <td><%= book.title %></td>
-        <td><%= book.body %></td>
-        <td><%= link_to "Show", book_path(book.id) %></td>
-        <td><%= link_to "Edit", edit_book_path(book.id) %></td>
-        <td><%= link_to "Destroy", book_path(book[:id]), method: :delete, "data-confirm" => "Are you sure?" %></td>
+      <tr>
+          <td><%= book.title %></td>
+          <td><%= book.body %></td>
+          <td><%= link_to "Show", book_path(book.id) %></td>
+          <td><%= link_to "Edit", edit_book_path(book.id) %></td>
+          <td><%= link_to "Destroy", book_path(book[:id]), method: :delete, "data-confirm" => "Are you sure?" %></td>
+      </tr>
       <% end %>
-    </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<h2>New book</h2>
+  <h2>New book</h2>
 
-<%= form_with(model:@book, local: true) do |form| %> <!--バリデーションチェック-->
-  <% if @book.errors.any? %> <!--ここからエラ〜メッセージ-->
-    <div id="error_explanation">
-      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this product from being saved:</h2>
+  <%= form_with(model:@book, local: true) do |form| %> <!--バリデーションチェック-->
+    <% if @book.errors.any? %> <!--ここからエラ〜メッセージ-->
+      <div id="error_explanation">
+        <h2><%= pluralize(@book.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-        <% @book.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
+        <ul>
+          <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
-<%= form_with model:@book, url:"/books", local:true do |f| %>
-  <div class="field">
-    <p>Title</p>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-     <p>Body</p>
-     <%= f.text_area :body %>
-  </div>
-  <%= f.submit 'Create Book' %>
- <% end %>
+  <%= form_with model:@book, url:"/books", local:true do |f| %> <!--投稿フォーム-->
+    <div class="field">
+      <label for="book_title">Title</label>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+       <label for "book_body">Body</label>
+       <%= f.text_area :body %>
+    </div>
+    <%= f.submit 'Create Book' %>
+   <% end %>
+ </body>
