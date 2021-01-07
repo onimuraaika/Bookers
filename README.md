@@ -1,3 +1,3 @@
 # Bookers
- * 本の感想文投稿サイトです。  
- * Ruby on Railsでの基礎的なCRUDページ制作を練習しました。
+#### Ruby on Railsでの基礎的なCRUDページ制作課題
+* 読んだ本の感想を投稿するサイト
